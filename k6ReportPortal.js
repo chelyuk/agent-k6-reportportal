@@ -60,6 +60,7 @@ function getHeader(token) {
 export default class RpClient {
     constructor(launchId, reporterOptions) {
         this.launchId = launchId
+        this.reporterOptions = reporterOptions
         this.reportPortalUri = `${reporterOptions.endpoint}/${reporterOptions.project}`
         this.token = reporterOptions.token
     }
@@ -73,7 +74,7 @@ export default class RpClient {
      * @returns 
      */
     addLogToBatch(jsonObject, message, id, level = 'error') {
-        if (!reporterOptions.publishResult){
+        if (!this.reporterOptions.publishResult){
             return null
         }
         let newObject = jsonObject;
@@ -93,7 +94,7 @@ export default class RpClient {
      * @param {Array} jsonBody
      */
      writeLogBatch(jsonBody) {
-        if (!reporterOptions.publishResult){
+        if (!this.reporterOptions.publishResult){
             return null
         }
         let payload = new FormData();
@@ -117,7 +118,7 @@ export default class RpClient {
      * @returns 
      */
     writeLog(id, message, level = 'error') {
-        if (!reporterOptions.publishResult){
+        if (!this.reporterOptions.publishResult){
             return null
         }
         const payload = {
@@ -134,7 +135,7 @@ export default class RpClient {
     }
 
     startSuite(suiteName, suiteDescription) {
-        if (!reporterOptions.publishResult){
+        if (!this.reporterOptions.publishResult){
             return null
         }
         const payload = {
@@ -149,7 +150,7 @@ export default class RpClient {
     }
 
     startTest(suiteId, testcaseName, testDescription) {
-        if (!reporterOptions.publishResult){
+        if (!this.reporterOptions.publishResult){
             return null
         }
         const payload = {
@@ -164,7 +165,7 @@ export default class RpClient {
     }
 
     startTestStep(testId, name, description) {
-        if (!reporterOptions.publishResult){
+        if (!this.reporterOptions.publishResult){
             return null
         }
         const payload = {
@@ -180,7 +181,7 @@ export default class RpClient {
     }
 
     finishTestStep(id, status, issueType = null, comment = 'no comments') {
-        if (!reporterOptions.publishResult){
+        if (!this.reporterOptions.publishResult){
             return null
         }
         let payload = {
@@ -200,7 +201,7 @@ export default class RpClient {
     }
 
     finishTest(id, status) {
-        if (!reporterOptions.publishResult){
+        if (!this.reporterOptions.publishResult){
             return null
         }
         const payload = {
@@ -214,7 +215,7 @@ export default class RpClient {
     }
 
     finishSuite(id) {
-        if (!reporterOptions.publishResult){
+        if (!this.reporterOptions.publishResult){
             return null
         }
         const payload = {
